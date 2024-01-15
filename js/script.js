@@ -107,8 +107,8 @@ function validation() {
 // получить данные из поля ввода
 
 function getPostFromUser() {
-	const title = postTitleInputNode.value;
-	const text = postTextInputNode.value;
+	const title = postTitleInputNode.value.trim();
+	const text = postTextInputNode.value.trim();
 
 	return {
 		title: title,
@@ -119,6 +119,10 @@ function getPostFromUser() {
 // сохранить пост
 
 function addPost({ title, text }) {
+	if (!title || !text) {
+		alert('Заголовок или текс пустой');
+		return;
+	}
 	const currentDate = new Date();
 	const getDate = currentDate.toLocaleString({
 		day: 'numeric',
@@ -126,7 +130,7 @@ function addPost({ title, text }) {
 		year: 'numeric',
 	});
 
-	const date = `${getDate}`;
+	const date = getDate;
 
 	posts.push({
 		date: date,
@@ -158,4 +162,3 @@ function renderPosts() {
 
 	postsNode.innerHTML = postsHTML;
 }
-
